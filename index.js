@@ -21,7 +21,7 @@ app.get('/',(req,res) => {
 
 app.post('/create-mentor', async(req,res) => {
     try {
-        const connection = await mongoclient.connect(process.env.DB);
+        const connection = await mongodb.MongoClient.connect(process.env.DB);
         const db = connection.db(process.env.dbName);
         const mentor = await db.collection("mentors").insertOne(req.body);
         await connection.close();
@@ -34,7 +34,7 @@ app.post('/create-mentor', async(req,res) => {
 
 app.post('/create-student', async(req,res) => {
     try {
-        const connection = await mongoclient.connect(process.env.DB);
+        const connection = await mongodb.MongoClient.connect(process.env.DB);
         const db = connection.db(process.env.dbName);
         const student = await db.collection("students").insertOne(req.body);
         await connection.close();
@@ -47,7 +47,7 @@ app.post('/create-student', async(req,res) => {
 
 app.get("/mentors",async (req,res) => {
     try {
-        const connection = await mongoclient.connect(process.env.DB);
+        const connection = await mongodb.MongoClient.connect(process.env.DB);
         const db = connection.db(process.env.dbName);
         const mentor = await db.collection("mentors").find({}).toArray();
         await connection.close();
@@ -60,7 +60,7 @@ app.get("/mentors",async (req,res) => {
 
 app.get("/students",async (req,res) => {
     try {
-        const connection = await mongoclient.connect(process.env.DB);
+        const connection = await mongodb.MongoClient.connect(process.env.DB);
         const db = connection.db(process.env.dbName);
         const student = await db.collection("students").find({}).toArray();
         await connection.close();
